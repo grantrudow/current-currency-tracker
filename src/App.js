@@ -1,22 +1,26 @@
 import React from 'react';
 import './App.css';
 import Card from './Card';
+import CurrencyList from './CurrencyList';
 
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
-      data: [],
-    }
+        source: '',
+        currentRates: [],
+        success: false
+      }
   }
 
   componentDidMount() {
     const endpoint = 'live';
     const access_key = '69d695f9dca70a1baae66074dfabb776';
-    const currencies = 'EUR,GBP,CAD,PLN';
-    const source = 'USD';
     const format = '1';
+    const source = 'USD';
+    const currencies = 'EUR,GBP,CAD,PLN'
+    const parent = this;
 
      fetch('http://api.currencylayer.com/' + endpoint 
         + '?access_key=' + access_key 
@@ -25,24 +29,30 @@ class App extends React.Component {
         + '&format' + format
         )
      .then(response => response.json())
-     .then(data => this.setState({ data }));  
-     console.log(this.state.data)
-     
+    //  .then(data => console.log(data.quotes))
+     .then(data => parent.setState({ 
+        currentRates: [data],
+        success: true,
+      }));
   }
 
   render() {
+    
+    const { currentRates, error, success  } = this.state;
 
-    const { error, success  } = this.state;
-    if (error) {
-      return <div>Error: { error.message }</div>;
-    } else if (!success) {
-      return <div>Loading...</div>
-    } else {
+    if (this.state.success) {
       return (
-        <Card />
-      )
+        <div>
+          <h1>SHOWING CARD</h1>
+          <h1>The source is {currentRates[0].source}</h1>
+          <h1>Comparing to GBP</h1>
+          <h1>The rate is {this.state.currentRates[0].quotes.USDGBP}</h1>
+        </div>
+      );
     }
-
+    return (
+      <h1>Nothing Loaded</h1>
+    )
   }
 }
 
