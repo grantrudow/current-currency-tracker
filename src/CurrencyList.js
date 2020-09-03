@@ -1,26 +1,25 @@
 import React from 'react';
 import Card from './Card';
 
-const CurrencyList = ({	results }) => {
+const CurrencyList = ({	currentRates }) => {
 	
 	return (
-		// <div>
-		// 	{
-		// 		results.map((result, i) => {
-		// 			return (
-		// 				<Card
-		// 				key={i}
-		// 				source = {result[i].source}
-		// 				eur={result[i].quotes.USDEUR}
-		// 				gbp={result[i].quotes.USDGBP}
-		// 				cad={result[i].quotes.USDCAD}
-		// 				pln={result[i].quotes.USDPLN}
-		// 				/>
-		// 			);
-		// 		})
-		// 	}
-		// </div>
-		<h1>Card</h1>
+		<div>
+			{
+				currentRates.map((rate, i) => {
+					return (
+						<Card
+						key={i}
+						source = {currentRates[i].source}
+						eur={currentRates[i].quotes.USDEUR}
+						gbp={currentRates[i].quotes.USDGBP}
+						cad={currentRates[i].quotes.USDCAD}
+						pln={currentRates[i].quotes.USDPLN}
+						/>
+					);
+				})
+			}
+		</div>
 	);
 }
 

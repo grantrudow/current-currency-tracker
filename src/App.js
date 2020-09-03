@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Card from './Card';
 import CurrencyList from './CurrencyList';
+import Home from './Home';
 
 
 class App extends React.Component {
@@ -42,11 +43,11 @@ class App extends React.Component {
 
     if (this.state.success) {
       return (
-        <div>
-          <h1>SHOWING CARD</h1>
-          <h1>The source is {currentRates[0].source}</h1>
-          <h1>Comparing to GBP</h1>
-          <h1>The rate is {this.state.currentRates[0].quotes.USDGBP}</h1>
+        <div className="body-container">
+          <Home />
+          <div className="rates-container">
+            <CurrencyList currentRates = { this.state.currentRates } />
+          </div>
         </div>
       );
     }
